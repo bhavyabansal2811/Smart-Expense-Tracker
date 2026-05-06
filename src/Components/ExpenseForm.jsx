@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 
 function ExpenseForm({addexpense}) {
+  // e.target.value is ALWAYS a string, even if input type is number.
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("Food");
   const [date, setDate] = useState("");
   
   //HANDLE SUBMIT KE LIYE
-  function handleSubmit(){
-    if(!date || !category){
+  function handleSubmit(e){
+     e.preventDefault(); //to prevent default from reload
+
+    console.log("Form submitted"); 
+
+
+    if(!date || !category || !amount){
       alert("Fill all the details")
       return
     }
@@ -17,7 +23,8 @@ function ExpenseForm({addexpense}) {
       category,
       date
     }
-    //ye value addexpense naam ke ek function me pass ho rha hai jo addexpense.jsx me hai
+    //ye value addexpense naam ke ek function me pass ho rha hai jo app.jsx me hai
+    console.log("Sending expense:", expense);
     addexpense(expense);
 
     //taki submit hoone ke baad sb default value pr aa jaiye
