@@ -4,10 +4,12 @@ import Sidebar from '../Components/Sidebar';
 
 export default function MainLayout() {
   return (
-    <div className='flex'>
+    //max-height screen se page me pura screen jitna hi height hoga
+    <div className='flex max-h-screen'>
       <Sidebar/>
+    {/* baki jo bhi screen height ke agge ja rha hai wo overflow hoga */}
+      <div className='p-2 w-full overflow-scroll'>
 
-      <div className='p-2 w-full'>
         <Outlet/>
       </div>
     </div>
