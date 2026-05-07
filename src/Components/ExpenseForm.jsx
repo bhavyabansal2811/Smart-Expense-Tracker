@@ -10,7 +10,7 @@ function ExpenseForm({addexpense}) {
   function handleSubmit(e){
      e.preventDefault(); //to prevent default from reload
 
-    console.log("Form submitted"); 
+    console.log("Form submitted "); 
 
 
     if(!date || !category || !amount){
