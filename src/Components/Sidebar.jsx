@@ -10,6 +10,7 @@ export default function Sidebar() {
         <NavLink to="/" className={({isActive})=> isActive ? 'bg-slate-600 p-2 rounded' :'p-2'}>Add Expense</NavLink>
         <NavLink to="history" className={({isActive})=> isActive ? 'bg-slate-600 p-2 rounded' :'p-2'}> 📋 History</NavLink>
         <NavLink to="charts" className={({isActive})=> isActive ? 'bg-slate-600 p-2 rounded' :'p-2'}> 📊 Charts</NavLink>
+        <NavLink to="budget" className={({isActive})=> isActive ? 'bg-slate-600 p-2 rounded' :'p-2'}>💰 Budget</NavLink>
     </div>
   )
 }

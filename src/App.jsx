@@ -4,6 +4,7 @@ import AddExpense from "./Pages/AddExpense";
 import Charts from "./Pages/Charts";
 import History from "./Pages/History";
 import MainLayout from "./Layout/MainLayout";
+import Budget from "./Pages/Budget";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
@@ -37,6 +38,7 @@ function App() {
           />
           <Route path="history" element={<History expenses={expenses} deleteExpense={deleteExpense}/>} />
           <Route path="charts" element={<Charts expenses={expenses} />} />
+          <Route path="budget" element={<Budget expenses={expenses} />} />
         </Route>
       </Routes>
     </BrowserRouter>
