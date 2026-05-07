@@ -1,33 +1,42 @@
-import React from 'react'
+import React from "react";
 
-export default function History({expenses,deleteExpense}) {
+export default function History({ expenses, deleteExpense }) {
   return (
-   <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">History</h1>
+    <div className="p-4 max-w-xl mx-auto">
+      
+      <h1 className="text-xl font-semibold mb-4">
+        Expense History
+      </h1>
 
       {expenses.length === 0 ? (
-        <p>No expenses</p>
+        <p className="text-gray-500 text-center mt-6">
+          No expenses yet
+        </p>
       ) : (
-        expenses.map((exp, index) => (
-          <div
-            key={index}
-            className="border p-3 mb-2 rounded flex justify-between items-center"
-          >
-            <div>
-              <p className="font-semibold">{exp.title}</p>
-              <p>₹{exp.amount}</p>
-              <p className="text-sm text-gray-500">{exp.category}</p>
-            </div>
-
-            <button
-              onClick={() => deleteExpense(index)}
-              className="bg-red-500 text-white px-3 py-1 rounded"
+        <div className="space-y-3">
+          {expenses.map((exp, index) => (
+            
+            <div
+              key={index}
+              className="flex justify-between items-center border p-3 rounded-lg"
             >
-              Delete
-            </button>
-          </div>
-        ))
+              
+              <div>
+                <p className="font-medium">{exp.title}</p>
+                <p className="text-sm text-gray-600">₹{exp.amount}</p>
+                <p className="text-xs text-gray-400">{exp.category}</p>
+              </div>
+
+              <button
+                onClick={() => deleteExpense(index)}
+                className="text-red-500 text-sm"
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
       )}
     </div>
-  )
+  );
 }

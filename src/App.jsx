@@ -4,6 +4,7 @@ import AddExpense from "./Pages/AddExpense";
 import Charts from "./Pages/Charts";
 import History from "./Pages/History";
 import MainLayout from "./Layout/MainLayout";
+import Budget from "./Pages/Budget";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
@@ -20,10 +21,10 @@ function App() {
     setExpenses(updated);
     localStorage.setItem("expenses", JSON.stringify(updated));
   }
-//ye index history.jsx se aa rha hai
-  function deleteExpense(index){
-    const updated=expenses.filter((val,idx)=>(idx!==index))
-    setExpenses(updated)
+  //ye index history.jsx se aa rha hai
+  function deleteExpense(index) {
+    const updated = expenses.filter((val, idx) => idx !== index);
+    setExpenses(updated);
     localStorage.setItem("expenses", JSON.stringify(updated));
   }
   return (
@@ -35,8 +36,14 @@ function App() {
             index
             element={<AddExpense expenses={expenses} addexpense={addexpense} />}
           />
-          <Route path="history" element={<History expenses={expenses} deleteExpense={deleteExpense}/>} />
+          <Route
+            path="history"
+            element={
+              <History expenses={expenses} deleteExpense={deleteExpense} />
+            }
+          />
           <Route path="charts" element={<Charts expenses={expenses} />} />
+          <Route path="budget" element={<Budget expenses={expenses} />} />
         </Route>
       </Routes>
     </BrowserRouter>

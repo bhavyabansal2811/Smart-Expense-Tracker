@@ -11,8 +11,6 @@ import {
   CartesianGrid,
 } from "recharts";
 
-
-
 function Charts({ expenses = [] }) {
   // CATEGORY DATA
   const categoryData = {};
@@ -50,37 +48,82 @@ function Charts({ expenses = [] }) {
     amount: monthlyData[key],
   }));
 
+  //FOR WEEKLY DATA
+  const dailyData = {};
+  expenses.forEach((exp) => {
+    const date = new Date(exp.date).getDate();
+    if (dailyData[date]) {
+      dailyData[date] += Number(exp.amount);
+    } else {
+      dailyData[date] = Number(exp.amount);
+    }
+  });
+
+  //now to convert it into array
+  const dailyArray = Object.keys(dailyData).map((key) => ({
+    day: key,
+    amount: dailyData[key],
+  }));
+
   const categoryColors = {
-  Food: "#FF6384",
-  Travel: "#36A2EB",
-  Shopping: "#FFCE56",
-  Other: "#8E44AD"
-};
+    Food: "#FF6384",
+    Travel: "#36A2EB",
+    Shopping: "#FFCE56",
+    Other: "#8E44AD",
+  };
+  const cardStyle = {
+    background: "#fff",
+    padding: "20px",
+    borderRadius: "12px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+    textAlign: "center",
+  };
   return (
     <div style={{ padding: "20px" }}>
       <h2>📊 Expense Charts</h2>
 
       {/* PIE CHART */}
       {/* DATAKEY VALUE HSI KYUKI VALUE KEY SE HI DIFFERENTIATE KRENGE */}
-      <PieChart width={300} height={300}>
-        <Pie data={categoryArray} dataKey="value" outerRadius={100}>
-          {categoryArray.map((cat, index) => (
-            // 👉 Adds different colors to slices
-            <Cell key={index} fill={categoryColors[cat.name]} />
-          ))}
-        </Pie>
-        {/* 👉 Shows values on hover */}
-        <Tooltip />
-      </PieChart>
+      <div style={cardStyle}>
+        <h3 style={{ marginBottom: "10px" }}>Category Wise</h3>
+
+        <PieChart width={300} height={300}>
+          <Pie data={categoryArray} dataKey="value" outerRadius={100}>
+            {categoryArray.map((cat, index) => (
+              // 👉 Adds different colors to slices */
+              <Cell key={index} fill={categoryColors[cat.name] || "#8884d8"} />
+            ))}
+          </Pie>
+          {/* 👉 Shows values on hover */}
+          <Tooltip />
+        </PieChart>
+      </div>
 
       {/* BAR CHART */}
-      <BarChart width={400} height={300} data={monthlyArray}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="month" />
-        <YAxis />
-        <Tooltip />
-        <Bar dataKey="amount" />
-      </BarChart>
+      <div style={cardStyle}>
+        <h3 style={{ marginBottom: "10px" }}>Monthly Spending</h3>
+
+        <BarChart width={400} height={300} data={monthlyArray}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="month" />
+          <YAxis />
+          <Tooltip />
+          <Bar dataKey="amount" fill="#36A2EB" />
+        </BarChart>
+      </div>
+
+      {/* bar chart 2 */}
+      <div style={cardStyle}>
+        <h3 style={{ marginBottom: "10px" }}>Daily Spending</h3>
+
+        <BarChart width={400} height={300} data={dailyArray}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="day" />
+          <YAxis />
+          <Tooltip />
+          <Bar dataKey="amount" fill="#FF6384" />
+        </BarChart>
+      </div>
     </div>
   );
 }
